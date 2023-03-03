@@ -8,6 +8,8 @@
 import UIKit
 
 final class CustomView: UIView {
+    var url: String
+    
     private let HStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -44,12 +46,15 @@ final class CustomView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(loadImageButtonAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
     
-    override init(frame: CGRect) {
+    init(frame: CGRect = .zero, url: String) {
+        self.url = url
+        
         super.init(frame: frame)
     }
     
@@ -72,5 +77,10 @@ final class CustomView: UIView {
         imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         loadButton.widthAnchor.constraint(equalTo: HStack.widthAnchor, multiplier: 0.25).isActive = true
         loadButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    
+    @objc func loadImageButtonAction(sender: UIButton!) {
+        imageView.image = .init(systemName: "photo")
+        imageView.load(url: URL(string: url)!)
     }
 }
