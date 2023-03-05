@@ -79,8 +79,8 @@ final class CustomView: UIView {
         loadButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
-    @objc func loadImageButtonAction(sender: UIButton!) {
+    @objc func loadImageButtonAction(sender: UIButton) {
         imageView.image = .init(systemName: "photo")
-        imageView.load(url: URL(string: url)!)
+        imageView.load(url: URL(string: url) ?? URL(fileURLWithPath: ""))
     }
 }
